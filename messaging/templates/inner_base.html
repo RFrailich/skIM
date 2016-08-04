@@ -1,0 +1,17 @@
+{# So inner pages look different than authentication ones #}
+<head>
+<title></title>
+<style>a.button{margin:10px;}</style>
+</head>
+
+<!-- TODO Basic design! -->
+<a href='{% url "messaging:results" %}' class='button'>See All Users</a>
+<a href='/messaging/logout/' class='button'>Logout</a>
+<form method='GET' action='{% url "messaging:results" %}' style='display:inline;'>
+      <input type='text' name='query' />
+      <input type='submit' />
+</form></br>
+
+{% block content %}{% endblock %}
+
+</body>

@@ -1,0 +1,7 @@
+{% extends 'inner_base.html' %}
+{% block content %}
+All users </br>
+{% for u in users %}
+  <a href='{% url "messaging:user_detail" u.id %}'>{{ u.username }}</a></br>
+{% endfor %}
+{% endblock %}

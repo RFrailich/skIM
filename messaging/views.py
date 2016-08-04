@@ -5,6 +5,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import Context
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 
 
 class UserDetailView(generic.DetailView):
@@ -45,9 +48,20 @@ def convo(request, user_id):
     conversations = user.conversation_set.filter(pk__in=curr_user.conversation_set.all())
     context = Context({'conversations':conversations})
     return render(request, 'conversations/detail.html', context)
-    
-class UserIndexView(generic.ListView):
+
+
+class UserIndexView(LoginRequiredMixin, generic.ListView):
+    login_url = '/messaging/login/'
+    redirect_field_name = 'redirect_to'
     model = User
-    template_name = 'messaging/results.html'
+    template_name = 'messaging/list.html'
     context_object_name = 'users'
-    
+
+
+def search(request):
+    query = request.GET.get('query')
+    qset = Q()
+    if query:
+        qset |= Q(username__contains=query)
+    results = User.objects.filter(qset)
+    return render(request, 'messaging/results.html', {'results': results, 'query': query})
