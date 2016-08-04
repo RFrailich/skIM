@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{user.username}}</h1> <br/>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<h2>{{user.first_name}} {{user.last_name}}</h2> <br/>
+<a href='{% url "messaging:convo_view" user.id %}'>See our conversation</a></br>
+</br>
+Send a message
+
+
+<form hidden='true'>
+<input type='text' name=''>
+<input type='submit' value='' />
+</form>
+
+<form method="POST" class="message-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+</form>
+{% endblock %}

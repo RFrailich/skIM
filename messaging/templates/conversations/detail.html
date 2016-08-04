@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for convo in conversations %}
+{% for message in convo.message_set.all %}
+{{message.sent_date}}<br/>
+{{message.body}}</br>
+{% endfor %}
+-----------------------------------------</br>
+{% endfor %}
+{% endblock %}
