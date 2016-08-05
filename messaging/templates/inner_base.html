@@ -1,17 +1,36 @@
 {# So inner pages look different than authentication ones #}
 <head>
 <title></title>
-<style>a.button{margin:10px;}</style>
+{% load staticfiles %}
+<script src="{% static "js/jquery-1.11.1.js" %}"></script>
+<script src="{% static "js/rango-jquery.js" %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link rel="script" type="js" href="{% static 'functions.js' %}" >
+<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}" />
+
 </head>
 
 <!-- TODO Basic design! -->
-<a href='{% url "messaging:results" %}' class='button'>See All Users</a>
-<a href='/messaging/logout/' class='button'>Logout</a>
-<form method='GET' action='{% url "messaging:results" %}' style='display:inline;'>
+<nav>
+<ul>
+<li><a href='{% url "messaging:results" %}' class='button'>See All Users</a></li>
+<li><a href='/messaging/logout/' class='button'>Logout</a></li>
+<li><form method='GET' action='{% url "messaging:results" %}' style='display:inline;'>
       <input type='text' name='query' />
       <input type='submit' />
-</form></br>
+</form></li>
+</ul>
 
+<select id='drop'>
+<option value='{% url "messaging:results" %}' class='button'>See All Users</option>
+<option value='/messaging/logout/' class='button'>Logout</option>
+<option id='search' value='Search'>Search</option>
+<form id='search_field' method='GET' action='{% url "messaging:results" %}' style='display:inline;'>
+      <input type='text' name='query' />
+      <input type='submit' />
+</form>
+</select>
+</nav>
 {% block content %}{% endblock %}
 
 </body>
