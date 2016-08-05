@@ -1,10 +1,22 @@
 {% extends 'inner_base.html' %}
 {% block content %}
-{% for convo in conversations %}
-{% for message in convo.message_set.all %}
+{% for message in conversation.message_set.all %}
+</br>
 {{message.sent_date}}<br/>
 {{message.body}}</br>
-{% endfor %}
 -----------------------------------------</br>
 {% endfor %}
+
+
+{# honeypot for spambots #}
+<form hidden='true'>
+<input type='text' name=''>
+<input type='submit' value='' />
+</form>
+
+<form action='.' method='POST'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type='submit'>Save</button>
+</form>
 {% endblock %}

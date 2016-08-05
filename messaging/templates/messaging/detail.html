@@ -5,16 +5,4 @@
 <h2>{{user.first_name}} {{user.last_name}}</h2> <br/>
 <a href='{% url "messaging:convo_view" user.id %}'>See our conversation</a></br>
 </br>
-Send a message
-
-{# honeypot for spambots #}
-<form hidden='true'>
-<input type='text' name=''>
-<input type='submit' value='' />
-</form>
-
-<form method="POST">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-</form>
 {% endblock %}
